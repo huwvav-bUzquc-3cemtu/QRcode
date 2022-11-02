@@ -1,0 +1,31 @@
+import qrcode
+from PIL import Image
+import matplotlib.pyplot as plt
+ 
+message = input("What message would you like to convey? Please Enter: ")
+file_name = input("Please enter your file name: ")
+def getQRcode(data, file_name):
+    qr = qrcode.QRCode(
+        version=3,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=5,
+        border=4,
+    )
+ 
+    # 添加数据
+    qr.add_data(data)
+    # 填充数据
+    qr.make(fit=True)
+    # 生成图片
+    img = qr.make_image(fill_color="black", back_color="white")
+    # 终端显示图片
+    plt.imshow(img)
+    plt.show()
+    # 保存img
+    img.save(file_name)
+    return img
+ 
+ 
+if __name__ == '__main__':
+    getQRcode(f"{message}", f"{file_name}.png")
+
